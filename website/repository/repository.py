@@ -1,9 +1,17 @@
-class repository:
-    def __init__(self, id):
-        self.id = id
+class Repository:
+    def __init__(self):
+        self.repo = list()
 
-    def add(self, content):
-        print(self.id)
-        print(self.contents)
-        self.contents.append(content)
-        print(self.contents)
+    def findById(self, id):
+        if not (id in self):
+            return None
+        else:
+            return self.repo[id]
+        
+    def findAll(self):
+        return self.repo
+
+    def save(self, item):
+        self.repo.append(item)
+        return True
+        
