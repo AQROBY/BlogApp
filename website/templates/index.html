@@ -2,6 +2,11 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 {% for x in content %}
-<p class="lead">Hello {{x}}</p>
+<p class="lead">ID: {{x.id}}</p>
+<p class="lead">Title: {{x.title}}</p>
+<p class="lead">Content: {{x.content}}</p>
+<p class="lead">Owner: {{x.owner}}</p>
+<p class="lead">Created at: {{x.created_at}}</p>
+<p class="lead">Modified at: {{x.modified_at}}</p>
 {% endfor %}
 {% endblock %}

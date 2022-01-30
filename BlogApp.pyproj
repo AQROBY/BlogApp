@@ -29,6 +29,9 @@
     <Compile Include="app.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="website\models\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="website\repository\repository.py">
       <SubType>Code</SubType>
     </Compile>
