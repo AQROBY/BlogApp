@@ -3,10 +3,11 @@ class Repository:
         self.repo = list()
 
     def findById(self, id):
-        if not (id in self):
-            return None
+        for post in self.repo:
+            if id == post.id:
+                return post
         else:
-            return self.repo[id]
+            return None
         
     def findAll(self):
         return self.repo
