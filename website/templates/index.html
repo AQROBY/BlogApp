@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-{% for x in posts %}
-<p class="lead">ID: {{x.id}}</p>
-<p class="lead">Title: {{x.title}}</p>
-<p class="lead">Content: {{x.content}}</p>
-<p class="lead">Owner: {{x.owner}}</p>
-<p class="lead">Created at: {{x.created_at}}</p>
-<p class="lead">Modified at: {{x.modified_at}}</p>
-{% endfor %}
+<h1 align="center">Posts</h1>
+<div id="posts">
+    {% for post in posts %}
+    <div class="card border-dark">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a style="text-decoration:none" href="/posts/{{post.id}}">Post ID: {{post.id}}</a>
+            <span>Owner: {{post.owner}}</span>
+        </div>
+        <div class="card-body">
+            <div class="card-text">{{post.content}}</div>
+        </div>
+        <div class="card-footer text-muted">
+            <span>Created at: {{post.created_at}}</span>
+            <span style="float:right">Modified at: {{post.modified_at}}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
