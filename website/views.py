@@ -31,3 +31,15 @@ def create_post():
             return redirect(url_for('views.index'))
 
     return render_template('create_post.html')
+
+@views.route("delete-post/<int:id>")
+def delete_post(id):
+    post = repository.findById(id)
+
+    if post == None:
+        flash('Post does not exist.', category='error')
+    else:
+        repository.delete(post)
+        flash('Post deleted!', category='success')
+
+    return redirect(url_for('views.index'))

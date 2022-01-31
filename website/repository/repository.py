@@ -25,3 +25,6 @@ class Repository:
         item.owner = self.assignOwner()
         self.repo.append(item)
         return True
+
+    def delete(self, post):
+        self.repo.remove(post)

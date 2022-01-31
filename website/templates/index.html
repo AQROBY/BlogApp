@@ -7,7 +7,14 @@
     <div class="card border-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
             <a style="text-decoration:none" href="/posts/{{post.id}}">Post ID: {{post.id}}</a>
-            <span>Owner: {{post.owner}}</span>
+            <span class="align-items-center">Owner: {{post.owner}}</span>
+            <div class="btn-group">
+                <button type="button" class="btn btn-group btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a></li>
+                </ul>
+            </div>
         </div>
         <div class="card-body">
             <div class="card-text">{{post.content}}</div>
@@ -17,6 +24,7 @@
             <span style="float:right">Modified at: {{post.modified_at}}</span>
         </div>
     </div>
+    <br />
     {% endfor %}
 </div>
 {% endblock %}
