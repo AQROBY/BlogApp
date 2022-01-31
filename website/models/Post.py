@@ -1,6 +1,5 @@
 class Post:
-    def __init__(self, id, title, content, owner, created_at, modified_at):
-        self.id = id
+    def __init__(self, title, content, owner, created_at, modified_at):
         self.title = title
         self.content = content
         self.owner = owner
