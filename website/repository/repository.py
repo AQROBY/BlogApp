@@ -17,7 +17,11 @@ class Repository:
         self.counter += 1
         return self.counter
 
+    def assignOwner(self):
+        return "Owner " + str(self.counter)
+
     def save(self, item):
         item.id = self.assignId()
+        item.owner = self.assignOwner()
         self.repo.append(item)
         return True

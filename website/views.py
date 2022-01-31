@@ -1,31 +1,33 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask.helpers import url_for
 from .models.Post import Post
 from .repository.repository import Repository
+import datetime
 
 views = Blueprint("views", __name__)
+repository = Repository()
 
 @views.route("/")
 @views.route("/index")
 def index():
-    x = Post("Post 1", "This is a post", "Marian", "01-02-2020", "01-02-2020")
-    y = Post("Post 2", "This is another post", "Ion", "07-02-2021", "07-02-2021")
-    z = Post("Post 2", "This is another post", "Ion", "07-02-2021", "07-02-2021")
-
-    xx = Repository()
-    xx.save(x)
-    xx.save(y)
-    xx.save(z)
-    
-    return render_template("index.html", content=xx.findAll(), findId=xx.findById(1))
+    posts = repository.findAll()
+    return render_template("index.html", posts=posts)
 
 @views.route("/create-post", methods=['GET', 'POST'])
 def create_post():
     if request.method == "POST":
-        text = request.form.get('text')
+        title = request.form.get('title')
+        content = request.form.get('text')
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        if not text:
-            flash('Post cannot be empty', category='error')
+        if not title:
+            flash('Title cannot be empty', category='error')
+        elif not content:
+            flash('Content cannot be empty', category='error')
         else:
-            post = Post()
+            post = Post(title, content, date, date)
+            repository.save(post)
             flash('Post created!', category='success')
+            return redirect(url_for('views.index'))
+
     return render_template('create_post.html')

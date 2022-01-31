@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="website\templates\base.html" />
-    <Content Include="website\templates\create_posts.html" />
+    <Content Include="website\templates\create_post.html" />
     <Content Include="website\templates\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
