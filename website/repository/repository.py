@@ -26,5 +26,10 @@ class Repository:
         self.repo.append(item)
         return True
 
+    def update(self, item):
+        self.repo.remove(item)
+        self.repo.append(item)
+        return True
+
     def delete(self, post):
         self.repo.remove(post)
