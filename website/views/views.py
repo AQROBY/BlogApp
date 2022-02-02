@@ -41,7 +41,6 @@ def edit_post(id):
     if post == None:
         flash('Post does not exist.', category='error')
 
-
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['text']
@@ -58,7 +57,7 @@ def edit_post(id):
             flash('Post created!', category='success')
             return redirect(url_for('views.index'))
 
-    return render_template('create_post.html')
+    return render_template('edit_post.html', post=post)
 
 @views.route("delete/<int:id>")
 def delete_post(id):
