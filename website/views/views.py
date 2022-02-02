@@ -2,8 +2,8 @@ import re
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask.helpers import url_for
 from flask.wrappers import Request
-from .models.Post import Post
-from .repository.repository import Repository
+from ..models.Post import Post
+from ..repository.repository import Repository
 import datetime
 
 views = Blueprint("views", __name__)
@@ -15,7 +15,7 @@ def index():
     posts = repository.findAll()
     return render_template("index.html", posts=posts)
 
-@views.route("/create-post", methods=['GET', 'POST'])
+@views.route("/create", methods=['GET', 'POST'])
 def create_post():
     if request.method == "POST":
         title = request.form.get('title')
@@ -34,7 +34,7 @@ def create_post():
 
     return render_template('create_post.html')
 
-@views.route("/edit-post/<int:id>", methods=['GET', 'POST'])
+@views.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit_post(id):
     post = repository.findById(id)
     
@@ -60,7 +60,7 @@ def edit_post(id):
 
     return render_template('create_post.html')
 
-@views.route("delete-post/<int:id>")
+@views.route("delete/<int:id>")
 def delete_post(id):
     post = repository.findById(id)
 
