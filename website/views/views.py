@@ -8,6 +8,10 @@ import datetime
 
 views = Blueprint("views", __name__)
 repository = Repository()
+postex = Post("asdas","123213",11111, 12312312)
+postex1 = Post("asdas","123213",11111, 12312312)
+repository.save(postex)
+repository.save(postex1)
 
 @views.route("/")
 @views.route("/index")

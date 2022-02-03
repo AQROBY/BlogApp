@@ -2,30 +2,37 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <h1 align="center">Posts</h1>
-<div id="posts">
-    {% for post in posts %}
-    <div class="card border-dark">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <a style="text-decoration:none" href="/posts/{{post.id}}">Post ID: {{post.id}} - {{post.title}}</a>
-            <span class="align-items-center">Owner: {{post.owner}}</span>
-            <div class="btn-group">
-                <button type="button" class="btn btn-group btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="/edit/{{post.id}}" class="dropdown-item">Edit Post</a></li>
-                    <li><a href="/delete/{{post.id}}" class="dropdown-item">Delete</a></li>
-                </ul>
+<div class="m-3" id="posts">
+    <div class="row mb-2">
+        {% for post in posts %}
+        <div class="col-md-4">
+            <div class="card border-dark">
+                <div class="card-body">
+                    <strong class="d-inline-block mb-2 text-primary">{{post.owner}}</strong>
+                    <h3>
+                        <a class="text-dark" style="text-decoration:none" href="/posts/{{post.id}}">
+                            Post ID: {{post.id}} - {{post.title}}
+                        </a>
+                    </h3>
+                    <!--
+                <div class="btn-group" style="float:right">
+                    <button type="button" class="btn btn-group btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/edit/{{post.id}}" class="dropdown-item">Edit Post</a></li>
+                        <li><a href="/delete/{{post.id}}" class="dropdown-item">Delete</a></li>
+                    </ul>
+                </div>
+                -->
+                    <div class="card-text mb-auto">{{post.content}}</div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="br-1 text-muted">Created at: {{post.created_at}}</div>
+                    <div class="br-1 text-muted">Modified at: {{post.modified_at}}</div>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="card-text">{{post.content}}</div>
-        </div>
-        <div class="card-footer text-muted">
-            <span>Created at: {{post.created_at}}</span>
-            <span style="float:right">Modified at: {{post.modified_at}}</span>
-        </div>
+        {% endfor %}
     </div>
-    <br />
-    {% endfor %}
 </div>
 {% endblock %}
