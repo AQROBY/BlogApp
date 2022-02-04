@@ -1,17 +1,38 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<br />
 <h1 align="center">Posts</h1>
+<br />
 <div class="m-3" id="posts">
-    <div class="row mb-2">
+    <div class="row">
         {% for post in posts %}
+        {% if post==posts[0] %}
+            <div class="col-12">
+                <div class="card border-dark text-center mb-4">
+                    <div class="card-body">
+                        <strong class="d-inline-block mb-2 text-dark">By {{post.owner}}</strong>
+                        <h3>
+                            <a class="justify-content-start title" href="/posts/{{post.id}}">
+                                {{post.title}}
+                            </a>
+                        </h3>
+                        <div class="card-text mb-auto content">{{post.content}}</div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="br-1 text-muted">Created at: {{post.created_at}}</div>
+                        <div class="br-1 text-muted">Modified at: {{post.modified_at}}</div>
+                    </div>
+                </div>
+             </div>
+        {% else %}
         <div class="col-md-4">
-            <div class="card border-dark">
+            <div class="card border-dark text-center card-shadow-hover h-100">
                 <div class="card-body">
-                    <strong class="d-inline-block mb-2 text-primary">{{post.owner}}</strong>
+                    <strong class="d-inline-block mb-2 text-dark">By {{post.owner}}</strong>
                     <h3>
-                        <a class="text-dark" style="text-decoration:none" href="/posts/{{post.id}}">
-                            Post ID: {{post.id}} - {{post.title}}
+                        <a class="justify-content-start" href="/posts/{{post.id}}">
+                            {{post.title}}
                         </a>
                     </h3>
                     <!--
@@ -24,7 +45,7 @@
                     </ul>
                 </div>
                 -->
-                    <div class="card-text mb-auto">{{post.content}}</div>
+                    <div class="card-text content">{{post.content}}</div>
                 </div>
                 <div class="card-footer text-muted">
                     <div class="br-1 text-muted">Created at: {{post.created_at}}</div>
@@ -32,6 +53,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>

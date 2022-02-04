@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<br />
 <h1 align="center">Edit post</h1>
 
-<form method='POST'>
+<form class="col-6 m-3" method='POST'>
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control form-text" name="title" id="title" value={{post.title}}>
     </div>
     <br />
     <div class="form-group">
-        <label for="text">Content</label>
-        <textarea name="text" class="form-control form-text" id="text">{{post.content}}</textarea>
+        <label for="content">Content</label>
+        <textarea name="content" class="form-control form-text" id="content"
+                  rows="12">{{post.content}}</textarea>
     </div>
     <br />
     <div align="center">

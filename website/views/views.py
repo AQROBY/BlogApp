@@ -8,8 +8,10 @@ import datetime
 
 views = Blueprint("views", __name__)
 repository = Repository()
-postex = Post("asdas","123213",11111, 12312312)
-postex1 = Post("asdas","123213",11111, 12312312)
+postex = Post("Title","This is the content",11111, 12312312)
+text = "Text textText textText textText textText textText textText textText textText textText textText textText textText text \
+    Text textText textText textText textText textText textText textText textText textText textText textText textText text"
+postex1 = Post("This is an article", text, 11111, 12312312)
 repository.save(postex)
 repository.save(postex1)
 
@@ -23,7 +25,7 @@ def index():
 def create_post():
     if request.method == "POST":
         title = request.form.get('title')
-        content = request.form.get('text')
+        content = request.form.get('content')
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not title:
@@ -47,7 +49,7 @@ def edit_post(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        content = request.form['text']
+        content = request.form['content']
         
         if not title:
             flash('Title cannot be empty', category='error')
