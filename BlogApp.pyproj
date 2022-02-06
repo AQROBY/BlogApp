@@ -50,12 +50,16 @@
     <Folder Include="website\" />
     <Folder Include="website\models\" />
     <Folder Include="website\static\" />
+    <Folder Include="website\static\scripts\" />
     <Folder Include="website\static\styles\" />
     <Folder Include="website\views\" />
     <Folder Include="website\repository\" />
     <Folder Include="website\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="website\static\scripts\scripts.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="website\static\styles\style.css" />
     <Content Include="website\templates\base.html" />
     <Content Include="website\templates\create_post.html" />
