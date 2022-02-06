@@ -7,13 +7,22 @@
 <form class="col-6 m-3" method='POST'>
     <div class="form-group">
         <label for="title">Title</label>
+        {% if post.title == None %}
         <input type="text" class="form-control form-text" name="title" id="title" placeholder="Enter a title for the post">
+        {% else %}
+        <input type="text" class="form-control form-text" name="title" id="title" value={{post.title}}>
+        {% endif %}
     </div>
     <br />
     <div class="form-group">
         <label for="content">Content</label>
+        {% if post.content == None %}
         <textarea name="content" class="form-control form-text" id="content"
                   rows=12 placeholder="Write a post..."></textarea>
+        {% else %}
+        <textarea name="content" class="form-control form-text" id="content"
+                  rows=12>{{post.content}}</textarea>
+        {% endif %}
     </div>
     <br />
     <div align="center">

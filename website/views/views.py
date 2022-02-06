@@ -23,6 +23,7 @@ def index():
 
 @views.route("/create", methods=['GET', 'POST'])
 def create_post():
+    tempPost = Post(None, None, None, None)
     if request.method == "POST":
         title = request.form.get('title')
         content = request.form.get('content')
@@ -30,7 +31,9 @@ def create_post():
 
         if not title:
             flash('Title cannot be empty', category='error')
+            tempPost.content = content
         elif not content:
+            tempPost.title = title
             flash('Content cannot be empty', category='error')
         else:
             post = Post(title, content, date, date)
@@ -38,7 +41,7 @@ def create_post():
             flash('Post created!', category='success')
             return redirect(url_for('views.index'))
 
-    return render_template('create_post.html')
+    return render_template('create_post.html', post=tempPost)
 
 @views.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit_post(id):
