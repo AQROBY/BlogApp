@@ -24,10 +24,12 @@ def index():
 
 @posts.route("/create", methods=['GET', 'POST'])
 def create_post():
-    tempPost = Post(None, None, None, None)
+    tempPost = Post(None, None, None, None, None, None)
     if request.method == "POST":
+        id = 1
         title = request.form.get('title')
         content = request.form.get('content')
+        owner = "Doesn't matter"
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not title:
@@ -37,7 +39,7 @@ def create_post():
             tempPost.title = title
             flash('Content cannot be empty', category='error')
         else:
-            post = Post(title, content, date, date)
+            post = Post(id, title, content, owner, date, date)
             postsRepository.create(post)
             flash('Post created!', category='success')
             return redirect(url_for('posts.index'))

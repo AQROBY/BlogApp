@@ -33,13 +33,19 @@
     <Compile Include="website\models\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="website\repository\repository.py">
+    <Compile Include="website\repository\postsRepository.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="website\models\post.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="website\views\views.py">
+    <Compile Include="website\repository\postsSeed.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="website\views\posts.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="website\views\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="website\__init__.py">
