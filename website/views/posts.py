@@ -1,5 +1,6 @@
 import re
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+import flask
 from flask.helpers import url_for
 from flask.wrappers import Request
 from ..models.Post import Post
@@ -16,7 +17,10 @@ repository.save(postex)
 repository.save(postex1)
 
 @posts.route("/")
-@posts.route("/index")
+def starting_url():
+    return flask.redirect("/posts")
+
+@posts.route("/posts")
 def index():
     posts = repository.findAll()
     return render_template("index.html", posts=posts)
