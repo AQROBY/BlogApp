@@ -1,4 +1,4 @@
-class Repository:
+class PostsRepository:
     def __init__(self):
         self.repo = list()
         self.counter = 0
@@ -10,7 +10,7 @@ class Repository:
         else:
             return None
         
-    def findAll(self):
+    def getAll(self):
         return self.repo
 
     def assignId(self):
@@ -20,7 +20,7 @@ class Repository:
     def assignOwner(self):
         return "Owner " + str(self.counter)
 
-    def save(self, item):
+    def create(self, item):
         item.id = self.assignId()
         item.owner = self.assignOwner()
         self.repo.append(item)

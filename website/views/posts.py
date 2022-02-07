@@ -4,17 +4,17 @@ import flask
 from flask.helpers import url_for
 from flask.wrappers import Request
 from ..models.Post import Post
-from ..repository.repository import Repository
+from ..repository.postsRepository import PostsRepository
 import datetime
 
 posts = Blueprint("posts", __name__)
-repository = Repository()
+postsRepository = PostsRepository()
 postex = Post("Title","This is the content",11111, 12312312)
 text = "Text textText textText textText textText textText textText textText textText textText textText textText textText text \
     Text textText textText textText textText textText textText textText textText textText textText textText textText text"
 postex1 = Post("This is an article", text, 11111, 12312312)
-repository.save(postex)
-repository.save(postex1)
+postsRepository.create(postex)
+postsRepository.create(postex1)
 
 @posts.route("/")
 def starting_url():
@@ -22,7 +22,7 @@ def starting_url():
 
 @posts.route("/posts")
 def index():
-    posts = repository.findAll()
+    posts = postsRepository.getAll()
     return render_template("index.html", posts=posts)
 
 @posts.route("/create", methods=['GET', 'POST'])
@@ -41,7 +41,7 @@ def create_post():
             flash('Content cannot be empty', category='error')
         else:
             post = Post(title, content, date, date)
-            repository.save(post)
+            postsRepository.create(post)
             flash('Post created!', category='success')
             return redirect(url_for('posts.index'))
 
@@ -49,7 +49,7 @@ def create_post():
 
 @posts.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit_post(id):
-    post = repository.findById(id)
+    post = postsRepository.findById(id)
     
     if post == None:
         flash('Post does not exist.', category='error')
@@ -66,7 +66,7 @@ def edit_post(id):
             post.title = title
             post.content = content
             post.modified_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            repository.update(post)
+            postsRepository.update(post)
             flash('Post created!', category='success')
             return redirect(url_for('posts.index'))
 
@@ -74,12 +74,12 @@ def edit_post(id):
 
 @posts.route("delete/<int:id>")
 def delete_post(id):
-    post = repository.findById(id)
+    post = postsRepository.findById(id)
 
     if post == None:
         flash('Post does not exist.', category='error')
     else:
-        repository.delete(post)
+        postsRepository.delete(post)
         flash('Post deleted!', category='success')
 
     return redirect(url_for('posts.index'))
