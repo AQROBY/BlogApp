@@ -4,8 +4,8 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "hello"
 
-    from .views import views
+    from .views import posts
 
-    app.register_blueprint(views.views, url_prefix="/")
+    app.register_blueprint(posts.posts, url_prefix="/")
 
     return app

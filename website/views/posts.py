@@ -6,7 +6,7 @@ from ..models.Post import Post
 from ..repository.repository import Repository
 import datetime
 
-views = Blueprint("views", __name__)
+posts = Blueprint("posts", __name__)
 repository = Repository()
 postex = Post("Title","This is the content",11111, 12312312)
 text = "Text textText textText textText textText textText textText textText textText textText textText textText textText text \
@@ -15,13 +15,13 @@ postex1 = Post("This is an article", text, 11111, 12312312)
 repository.save(postex)
 repository.save(postex1)
 
-@views.route("/")
-@views.route("/index")
+@posts.route("/")
+@posts.route("/index")
 def index():
     posts = repository.findAll()
     return render_template("index.html", posts=posts)
 
-@views.route("/create", methods=['GET', 'POST'])
+@posts.route("/create", methods=['GET', 'POST'])
 def create_post():
     tempPost = Post(None, None, None, None)
     if request.method == "POST":
@@ -39,11 +39,11 @@ def create_post():
             post = Post(title, content, date, date)
             repository.save(post)
             flash('Post created!', category='success')
-            return redirect(url_for('views.index'))
+            return redirect(url_for('posts.index'))
 
     return render_template('create_post.html', post=tempPost)
 
-@views.route("/edit/<int:id>", methods=['GET', 'POST'])
+@posts.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit_post(id):
     post = repository.findById(id)
     
@@ -64,11 +64,11 @@ def edit_post(id):
             post.modified_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             repository.update(post)
             flash('Post created!', category='success')
-            return redirect(url_for('views.index'))
+            return redirect(url_for('posts.index'))
 
     return render_template('edit_post.html', post=post)
 
-@views.route("delete/<int:id>")
+@posts.route("delete/<int:id>")
 def delete_post(id):
     post = repository.findById(id)
 
@@ -78,4 +78,4 @@ def delete_post(id):
         repository.delete(post)
         flash('Post deleted!', category='success')
 
-    return redirect(url_for('views.index'))
+    return redirect(url_for('posts.index'))
