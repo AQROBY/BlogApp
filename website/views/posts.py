@@ -5,16 +5,13 @@ from flask.helpers import url_for
 from flask.wrappers import Request
 from ..models.Post import Post
 from ..repository.postsRepository import PostsRepository
+from ..repository import postsSeed
 import datetime
 
 posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
-postex = Post("Title","This is the content",11111, 12312312)
-text = "Text textText textText textText textText textText textText textText textText textText textText textText textText text \
-    Text textText textText textText textText textText textText textText textText textText textText textText textText text"
-postex1 = Post("This is an article", text, 11111, 12312312)
-postsRepository.create(postex)
-postsRepository.create(postex1)
+postsSeed.seed(postsRepository)
+
 
 @posts.route("/")
 def starting_url():
