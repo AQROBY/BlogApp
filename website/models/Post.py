@@ -6,3 +6,9 @@ class Post:
         self.owner = owner
         self.created_at = created_at
         self.modified_at = modified_at
+
+    def previewContent(self):
+        return "   " + self.content[0:260] + "..."
+
+    def previewBigContent(self):
+        return "   " + self.content[0:460] + "..."
