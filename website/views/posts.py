@@ -1,4 +1,5 @@
 import re
+import operator
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 import flask
 from flask.helpers import url_for
@@ -15,6 +16,7 @@ postsSeed.seed(postsRepository)
 @posts.route("/")
 def index():
     posts = postsRepository.getAll()
+    posts.sort(key = operator.attrgetter("created_at"))
     return render_template("index.html", posts=posts)
 
 @posts.route("/create", methods=['GET', 'POST'])
