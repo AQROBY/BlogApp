@@ -35,17 +35,6 @@
                             {{post.title}}
                         </a>
                     </h3>
-                <div class="btn-group" style="float:right">
-                    <button type="button" class="btn btn-group btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="/posts/edit/{{post.id}}" class="dropdown-item">Edit Post</a></li>
-                        <li>
-                            <a href="/posts/delete/{{post.id}}" class="dropdown-item delete"
-                               data-confirm="Are you sure to delete this item?">Delete</a>
-                        </li>
-                    </ul>
-                </div>
                     <div class="card-text content">{{post.previewContent()}}</div>
                 </div>
                 <div class="card-footer text-muted">
