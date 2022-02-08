@@ -12,18 +12,13 @@ posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
 postsSeed.seed(postsRepository)
 
-
 @posts.route("/")
-def starting_url():
-    return flask.redirect("/posts")
-
-@posts.route("/posts")
 def index():
     posts = postsRepository.getAll()
     return render_template("index.html", posts=posts)
 
 @posts.route("/create", methods=['GET', 'POST'])
-def create_post():
+def create():
     tempPost = Post(None, None, None, None, None, None)
     if request.method == "POST":
         id = 1
@@ -46,12 +41,27 @@ def create_post():
 
     return render_template('create_post.html', post=tempPost)
 
-@posts.route("/edit/<int:id>", methods=['GET', 'POST'])
-def edit_post(id):
+@posts.route("/<int:id>", methods=['GET', 'POST'])
+def read(id):
     post = postsRepository.findById(id)
     
     if post == None:
         flash('Post does not exist.', category='error')
+        return redirect(url_for('posts.index'))
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+
+    return render_template('read_post.html', post=post)
+
+@posts.route("/edit/<int:id>", methods=['GET', 'POST'])
+def edit(id):
+    post = postsRepository.findById(id)
+    
+    if post == None:
+        flash('Post does not exist.', category='error')
+        return redirect(url_for('posts.index'))
 
     if request.method == 'POST':
         title = request.form['title']
@@ -72,7 +82,7 @@ def edit_post(id):
     return render_template('edit_post.html', post=post)
 
 @posts.route("delete/<int:id>")
-def delete_post(id):
+def delete(id):
     post = postsRepository.findById(id)
 
     if post == None:

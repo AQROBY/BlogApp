@@ -5,7 +5,9 @@ def create_app():
     app.config['SECRET_KEY'] = "hello"
 
     from .views import posts
+    from .views import generic
 
-    app.register_blueprint(posts.posts, url_prefix="/")
+    app.register_blueprint(generic.generic, url_prefix="/")
+    app.register_blueprint(posts.posts, url_prefix="/posts")
 
     return app

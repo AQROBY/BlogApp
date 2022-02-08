@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Edit post{% endblock %}
 {% block content %}
 <br />
 <h1 align="center">Edit post</h1>
@@ -7,7 +7,7 @@
 <form class="col-6 m-3" method='POST'>
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control form-text" name="title" id="title" value={{post.title}}>
+        <input type="text" class="form-control form-text" name="title" id="title" value="{{post.title}}">
     </div>
     <br />
     <div class="form-group">

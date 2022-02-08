@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Create post{% endblock %}
+{% block content %}
+<br />
+<h1 align="center">{{post.title}}</h1>
+
+<div class="d-flex mx-5 mt-3 content">
+    <p class="lead fs-3">Written by {{post.owner}}</p>
+</div>
+<div class="d-flex mx-5 mt-3 content">
+    <p class="lead">{{post.content}}</p>
+</div>
+<div class="d-flex mx-5 mt-3 pt-2 border-top fw-bold">Created at: {{post.created_at}}</div>
+<div class="d-flex mx-5 mt-3 mb-4 fw-bold">Modified at: {{post.modified_at}}</div>
+{% endblock %}
