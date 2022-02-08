@@ -13,16 +13,16 @@ class PostsRepository:
     def getAll(self):
         return self.repo
 
-    def assignId(self):
+    def __assignId(self):
         self.counter += 1
         return self.counter
 
-    def assignOwner(self):
+    def __assignOwner(self):
         return "Owner " + str(self.counter)
 
     def create(self, item):
-        item.id = self.assignId()
-        item.owner = self.assignOwner()
+        item.id = self.__assignId()
+        item.owner = self.__assignOwner()
         self.repo.append(item)
         return True
 

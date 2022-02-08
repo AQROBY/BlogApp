@@ -17,7 +17,7 @@
                                 {{post.title}}
                             </a>
                         </h3>
-                        <div class="card-text mb-auto content">{{post.previewBigContent()}}</div>
+                        <div class="card-text mb-auto">{{post.previewBigContent()}}</div>
                     </div>
                     <div class="card-footer text-muted">
                         <div class="br-1 text-muted">Created at: {{post.created_at}}</div>
@@ -26,7 +26,7 @@
                 </div>
              </div>
         {% else %}
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <div class="card border-dark text-center card-shadow-hover h-100">
                 <div class="card-body">
                     <strong class="d-inline-block mb-2 text-dark">By {{post.owner}}</strong>
@@ -35,7 +35,7 @@
                             {{post.title}}
                         </a>
                     </h3>
-                    <div class="card-text content">{{post.previewContent()}}</div>
+                    <div class="card-text">{{post.previewContent()}}</div>
                 </div>
                 <div class="card-footer text-muted">
                     <div class="br-1 text-muted">Created at: {{post.created_at}}</div>

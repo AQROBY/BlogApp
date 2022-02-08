@@ -8,7 +8,12 @@ class Post:
         self.modified_at = modified_at
 
     def previewContent(self):
-        return "   " + self.content[0:260] + "..."
+        if len(self.content) < 260:
+            return self.content
+
+        return self.content[0:260] + "..."
 
     def previewBigContent(self):
-        return "   " + self.content[0:460] + "..."
+        if len(self.content) < 460:
+            return self.content
+        return self.content[0:460] + "..."
