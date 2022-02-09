@@ -30,6 +30,9 @@
     <Compile Include="app.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test_blog.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="website\models\previewPost.py">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +62,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="tests\" />
     <Folder Include="website\" />
     <Folder Include="website\models\" />
     <Folder Include="website\static\" />
