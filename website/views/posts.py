@@ -51,10 +51,6 @@ def read(id):
         flash('Post does not exist.', category='error')
         return redirect(url_for('posts.index'))
 
-    if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
-
     return render_template('read_post.html', post=post)
 
 @posts.route("/edit/<int:id>", methods=['GET', 'POST'])

@@ -35,8 +35,9 @@ class PostsRepository:
         return True
 
     def update(self, item):
+        index = self.repo.index(item)
         self.repo.remove(item)
-        self.repo.append(item)
+        self.repo.insert(index, item)
         return True
 
     def delete(self, post):

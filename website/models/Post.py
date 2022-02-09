@@ -6,14 +6,3 @@ class Post:
         self.owner = owner
         self.created_at = created_at
         self.modified_at = modified_at
-
-    def previewContent(self):
-        if len(self.content) < 260:
-            return self.content
-
-        return self.content[0:260] + "..."
-
-    def previewBigContent(self):
-        if len(self.content) < 460:
-            return self.content
-        return self.content[0:460] + "..."
