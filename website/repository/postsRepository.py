@@ -1,3 +1,5 @@
+from ..models.previewPost import PreviewPost
+
 class PostsRepository:
     def __init__(self):
         self.repo = list()
@@ -12,6 +14,12 @@ class PostsRepository:
         
     def getAll(self):
         return self.repo
+
+    def getAllPreviews(self):
+        tempRepo = list()
+        for post in self.repo:
+            tempRepo.append(PreviewPost(post))
+        return tempRepo
 
     def __assignId(self):
         self.counter += 1

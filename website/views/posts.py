@@ -15,8 +15,8 @@ postsSeed.seed(postsRepository)
 
 @posts.route("/")
 def index():
-    posts = postsRepository.getAll()
-    posts.sort(key = operator.attrgetter("created_at"))
+    posts = postsRepository.getAllPreviews()
+    posts.sort(key = operator.attrgetter("created_at"), reverse=True)
     return render_template("index.html", posts=posts)
 
 @posts.route("/create", methods=['GET', 'POST'])
