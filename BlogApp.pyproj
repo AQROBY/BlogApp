@@ -30,7 +30,22 @@
     <Compile Include="app.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\test_blog.py">
+    <Compile Include="tests\conftest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\functional\tests_posts.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\functional\test_index.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\unit\test_models.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\unit\test_repositories.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="website\models\previewPost.py">
@@ -48,7 +63,7 @@
     <Compile Include="website\repository\postsSeed.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="website\views\generic.py">
+    <Compile Include="website\views\index.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="website\views\posts.py">
@@ -63,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tests\" />
+    <Folder Include="tests\functional\" />
+    <Folder Include="tests\unit\" />
     <Folder Include="website\" />
     <Folder Include="website\models\" />
     <Folder Include="website\static\" />
