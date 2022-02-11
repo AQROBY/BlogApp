@@ -34,7 +34,7 @@
     <Compile Include="tests\conftest.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\functional\tests_posts.py">
+    <Compile Include="tests\functional\test_posts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\functional\test_index.py">

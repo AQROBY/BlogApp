@@ -1,5 +1,4 @@
 from tests.conftest import app
-from flask import url_for
 
 def test_index(client, app):
     response = client.get('/')
