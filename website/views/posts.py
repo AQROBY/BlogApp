@@ -74,7 +74,7 @@ def edit(id):
             post.content = content
             post.modified_at = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             postsRepository.update(post)
-            flash('Post created!', category='success')
+            flash('Post edited!', category='success')
             return redirect(url_for('posts.index'))
 
     return render_template('edit_post.html', post=post)

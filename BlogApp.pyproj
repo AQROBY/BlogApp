@@ -34,16 +34,10 @@
     <Compile Include="tests\conftest.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\functional\test_posts.py">
+    <Compile Include="tests\test_posts.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tests\functional\test_index.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tests\unit\test_models.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tests\unit\test_repositories.py">
+    <Compile Include="tests\test_index.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tests\__init__.py">
@@ -79,8 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tests\" />
-    <Folder Include="tests\functional\" />
-    <Folder Include="tests\unit\" />
     <Folder Include="website\" />
     <Folder Include="website\models\" />
     <Folder Include="website\static\" />
