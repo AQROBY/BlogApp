@@ -6,11 +6,14 @@ from flask.helpers import url_for
 from flask.wrappers import Request
 from ..models.Post import Post
 from ..repository.postsRepository import PostsRepository
+from ..repository.postsRepositoryDb import PostsRepositoryDb
 from ..repository import postsSeed
 import datetime
 
 posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
+db = PostsRepositoryDb()
+db.verifica()
 postsSeed.seed(postsRepository)
 
 @posts.route("/")

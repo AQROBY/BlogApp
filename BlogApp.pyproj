@@ -55,6 +55,9 @@
     <Compile Include="website\models\post.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="website\repository\postsRepositoryDb.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="website\repository\postsSeed.py">
       <SubType>Code</SubType>
     </Compile>
