@@ -3,7 +3,6 @@ import operator
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 import flask
 from flask.helpers import url_for
-from flask.wrappers import Request
 from ..models.Post import Post
 from ..repository.postsRepository import PostsRepository
 from ..repository.postsRepositoryDb import PostsRepositoryDb

@@ -1,12 +1,21 @@
-from ..models.previewPost import PreviewPost
-import psycopg2 as driver
+import psycopg2 as db
 
 class PostsRepositoryDb:
     def __init__(self):
-        self.repo = driver.connect("dbname=blogapp user=postgres password=admin")
+        try:
+            self.repo = db.connect("dbname=blogapp user=postgres password=admin")
+        except(Exception, db.DatabaseError) as error:
+            if(error):
+                connection = db.connect("dbname=postgres user=postgres password=admin")
+                connection.set_session(autocommit=True)
+                cursor = connection.cursor().execute("CREATE database blogapp")
+                connection.commit()
+                connection.close()
+        finally:
+            self.repo = db.connect("dbname=blogapp user=postgres password=admin")
+
 
     def verifica(self):
-        conn = None
         try:
             print('PostgreSQL database version:')
             cursor = self.repo.cursor()
@@ -14,8 +23,5 @@ class PostsRepositoryDb:
             db = cursor.fetchone()
             print(db)
             self.repo.cursor().close()
-        except (Exception, driver.DatabaseError) as error:
+        except (Exception, db.DatabaseError) as error:
             print(error)
-        finally:
-            if conn is not None:
-                print('Database connection closed.')
