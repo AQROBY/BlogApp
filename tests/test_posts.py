@@ -39,6 +39,7 @@ def test_read_works(client):
     assert response.status_code == 200
 
 def test_create_z_read_post(client):
+    post = client.post('posts/create', data={"title": "Fallout 4"})
     post = client.get('posts/4')
     response = post.get_data(as_text=True)
     assert post.status_code == 200
@@ -53,10 +54,12 @@ def test_read_wrongId(client):
     assert "Post does not exist." in responseFromIndex
 
 def test_edit_works(client):
+    post = client.post('posts/create', data={"title": "Fallout 4"})
     post = client.get('posts/edit/4')
     assert post.status_code == 200
 
 def test_edit_post(client):
+    post = client.post('posts/create', data={"title": "Fallout 4"})
     post = client.post('posts/edit/4', data={"title": "Fallout 5", "content": "One more tommorow"})
     response = client.get('posts/').get_data(as_text=True)
     assert "Fallout 5" in response
@@ -72,12 +75,14 @@ def test_edit_wrongid(client):
     assert "Post does not exist." in responseFromIndex
 
 def test_edit_titleEmptyError(client):
-    post = client.post('posts/edit/3', data={"title":"", "content": "One more tommorow"})
+    post = client.post('posts/create', data={"title": "Fallout 4"})
+    post = client.post('posts/edit/4', data={"title":"", "content": "One more tommorow"})
     response = post.get_data(as_text=True)
     assert "Title cannot be empty" in response
 
 def test_edit_contentEmptyError(client):
-    post = client.post('posts/edit/3', data={"title":"Fallout 5", "content": ""})
+    post = client.post('posts/create', data={"title": "Fallout 4"})
+    post = client.post('posts/edit/4', data={"title":"Fallout 5", "content": ""})
     response = post.get_data(as_text=True)
     assert "Content cannot be empty" in response
 

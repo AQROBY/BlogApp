@@ -8,12 +8,11 @@ class PostsRepositoryDb:
             if(error):
                 connection = db.connect("dbname=postgres user=postgres password=admin")
                 connection.set_session(autocommit=True)
-                cursor = connection.cursor().execute("CREATE database blogapp")
+                connection.cursor().execute("CREATE database blogapp")
                 connection.commit()
                 connection.close()
         finally:
             self.repo = db.connect("dbname=blogapp user=postgres password=admin")
-
 
     def verifica(self):
         try:
