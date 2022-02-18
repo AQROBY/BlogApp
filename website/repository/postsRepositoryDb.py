@@ -1,4 +1,5 @@
 import psycopg2 as db
+import datetime
 
 class PostsRepositoryDb:
     def __init__(self):
@@ -21,8 +22,8 @@ class PostsRepositoryDb:
                 (id smallserial, \
                 title character varying(255) NOT NULL,\
                 content text NOT NULL, owner character varying(255) NOT NULL, \
-                created_at date NOT NULL DEFAULT CURRENT_DATE, \
-                modified_at date NOT NULL DEFAULT CURRENT_DATE, \
+                created_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
+                modified_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
                 PRIMARY KEY (id))")
             self.repo.commit()
         except (Exception, db.DatabaseError) as error:
@@ -66,5 +67,29 @@ class PostsRepositoryDb:
             query = self.repo.cursor().execute('INSERT INTO posts VALUES(DEFAULT, %s, %s, %s, %s, %s)', (item.title, item.content,
                                                self.__assignOwner(), item.created_at, item.modified_at))
             self.repo.commit()
+            return True
         except (Exception, db.DatabaseError) as error:
             print(error)
+            return False
+
+    def update(self, item):
+        try:
+            self.__connect()
+            query = self.repo.cursor().execute('UPDATE posts SET title = %s, content = %s, modified_at = %s WHERE id = %s',
+                                               (item.title, item.content, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                                item.id))
+            self.repo.commit()
+            return True
+        except (Exception, db.DatabaseError) as error:
+            print(error)
+            return False
+
+    def delete(self, post):
+        try:
+            self.__connect()
+            self.repo.cursor().execute('DELETE FROM posts WHERE id = %s', [post.id])
+            self.repo.commit()
+            return True
+        except (Exception, db.DatabaseError) as error:
+            print(error)
+            return False
