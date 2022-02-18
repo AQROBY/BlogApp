@@ -12,7 +12,10 @@ import datetime
 posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
 db = PostsRepositoryDb()
-db.verifica()
+post59 = Post(59, "Title", "This is the content", "ownerrr", "2022-02-08 04:07:07", "2022-02-08 04:07:07")
+db.create(post59)
+a = db.findById(1)
+b = db.getAll()
 postsSeed.seed(postsRepository)
 
 @posts.route("/")
