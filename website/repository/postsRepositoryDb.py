@@ -24,6 +24,7 @@ class PostsRepositoryDb:
                 content text NOT NULL, owner character varying(255) NOT NULL, \
                 created_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
                 modified_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
+                contentPreview text GENERATED ALWAYS AS (substring(content from 1 for 460) || '...') STORED,  \
                 PRIMARY KEY (id))")
             self.repo.commit()
         except (Exception, db.DatabaseError) as error:
@@ -56,7 +57,16 @@ class PostsRepositoryDb:
         try:
             self.__connect()
             cursor = self.repo.cursor()
-            cursor.execute('SELECT * FROM posts')
+            cursor.execute('SELECT id, title, content, owner, created_at, modified_at FROM posts')
+            return cursor.fetchall()
+        except:
+            return None
+
+    def getAllPreviews(self):
+        try:
+            self.__connect()
+            cursor = self.repo.cursor()
+            cursor.execute('SELECT id, title, contentPreview, owner, created_at, modified_at FROM posts')
             return cursor.fetchall()
         except:
             return None
