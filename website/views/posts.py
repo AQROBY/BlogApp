@@ -11,21 +11,18 @@ import datetime
 
 posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
-db = PostsRepositoryDb()
-post59 = Post(59, "Title", "This is the content", "ownerrr", "2022-02-08 04:07:07", "2022-02-08 04:07:07")
-db.create(post59)
-a = db.findById(1)
-b = db.getAll()
-post1 = Post(1, "Fallout 4", "One more tommorow", "ownerrr", "2022-02-08 04:07:07", "2022-02-08 04:07:07")
-db.update(post1)
-db.delete(post1)
-db.create(post59)
 postsSeed.seed(postsRepository)
+#Uncomment the following lines for the website to work with DB (only index works as intended)
+postsRepository = PostsRepositoryDb()
+postsSeed.seedDb(postsRepository)
 
 @posts.route("/")
 def index():
     posts = postsRepository.getAllPreviews()
-    posts.sort(key = operator.attrgetter("created_at"), reverse=True)
+    if isinstance(postsRepository, PostsRepository):
+        posts.sort(key = operator.attrgetter("created_at"), reverse=True)
+    else:
+        posts.sort(key=lambda item:item['created_at'], reverse=True)
     return render_template("index.html", posts=posts)
 
 @posts.route("/create", methods=['GET', 'POST'])

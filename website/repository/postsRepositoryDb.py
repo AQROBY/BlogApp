@@ -22,9 +22,9 @@ class PostsRepositoryDb:
                 (id smallserial, \
                 title character varying(255) NOT NULL,\
                 content text NOT NULL, owner character varying(255) NOT NULL, \
-                created_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
-                modified_at timestamp without time zone NOT NULL DEFAULT CURRENT_DATE, \
-                contentPreview text GENERATED ALWAYS AS (substring(content from 1 for 460) || '...') STORED,  \
+                created_at character varying(255) NOT NULL DEFAULT CURRENT_DATE, \
+                modified_at character varying(255) NOT NULL DEFAULT CURRENT_DATE, \
+                contentPreview text GENERATED ALWAYS AS (substring(content from 1 for 400) || '...') STORED,  \
                 PRIMARY KEY (id))")
             self.repo.commit()
         except (Exception, db.DatabaseError) as error:
@@ -57,7 +57,8 @@ class PostsRepositoryDb:
         try:
             self.__connect()
             cursor = self.repo.cursor()
-            cursor.execute('SELECT id, title, content, owner, created_at, modified_at FROM posts')
+            cursor.execute('SELECT id, title, content, owner, created_at, modified_at FROM posts \
+            ORDER BY created_at')
             return cursor.fetchall()
         except:
             return None
@@ -67,8 +68,17 @@ class PostsRepositoryDb:
             self.__connect()
             cursor = self.repo.cursor()
             cursor.execute('SELECT id, title, contentPreview, owner, created_at, modified_at FROM posts')
-            return cursor.fetchall()
-        except:
+            result = []
+            for buff in cursor:
+                row = {}
+                c = 0
+                for col in cursor.description:
+                    row.update({str(col[0]): buff[c]})
+                    c += 1
+                result.append(row)
+            return result
+        except (Exception, db.DatabaseError) as error:
+            print(error)
             return None
 
     def create(self, item):
