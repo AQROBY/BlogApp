@@ -4,7 +4,7 @@ from website import create_app
 @pytest.fixture
 def app():
     app = create_app()
-    return app
+    yield app
 
 @pytest.fixture
 def client(app):

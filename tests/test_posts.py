@@ -1,3 +1,5 @@
+import pytest
+
 def test_index_works(client):
     response = client.get('posts/')
     assert response.status_code == 200
@@ -9,7 +11,6 @@ def test_index_try_post_method_should_fail(client):
 def test_index_seededContent_exists(client):
     response = client.get('posts/').get_data(as_text=True)
     assert "This is an article" in response
-    assert "Minimal Post" in response
 
 def test_create_works(client):
     response = client.get('posts/create')
@@ -19,8 +20,9 @@ def test_create_post(client):
     client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
     response = client.get('posts/').get_data(as_text=True)
     assert "Fallout 4" in response
-    assert "One more tommorow" in response
     assert "Post created!" in response
+    responseFromPost = client.get('posts/4').get_data(as_text=True)
+    assert "One more tommorow" in responseFromPost
 
 def test_create_titleEmptyError(client):
     post = client.post('posts/create', data={"content": "One more tommorow"})
@@ -38,16 +40,6 @@ def test_read_works(client):
     response = client.get('posts/3')
     assert response.status_code == 200
 
-def test_create_z_read_post(client):
-    client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
-    client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
-    post = client.get('posts/5')
-    response = post.get_data(as_text=True)
-    assert post.status_code == 200
-    assert "Fallout 4" in response
-    assert "One more tommorow" in response
-    assert "Anything else content contetttttttnnttt" not in response
-
 def test_read_wrongId(client):
     post = client.get('posts/50')
     assert post.status_code == 302
@@ -60,13 +52,13 @@ def test_edit_works(client):
 
 def test_edit_post(client):
     client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
-    client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
-    post = client.post('posts/edit/5', data={"title": "Fallout 5", "content": "One more tommorow"})
+    post = client.post('posts/edit/4', data={"title": "Fallout 5", "content": "One more tommorow"})
     response = client.get('posts/').get_data(as_text=True)
     assert "Fallout 5" in response
-    assert "One more tommorow" in response
     assert "Post edited" in response
     assert post.status_code == 302
+    responseFromPost = client.get('posts/4').get_data(as_text=True)
+    assert "One more tommorow" in responseFromPost
 
 def test_edit_wrongid(client):
     post = client.post('posts/edit/50', data={"title": "Fallout 5", "content": "One more tommorow"})
@@ -86,7 +78,8 @@ def test_edit_contentEmptyError(client):
 
 def test_delete_works(client):
     client.post('posts/create', data={"title": "Fallout 4", "content": "One more tommorow"})
-    post = client.get('posts/delete/4')
+    client.post('posts/create', data={"title": "Fallout 5", "content": "Another one bites the dust"})
+    post = client.get('posts/delete/5')
     responseFromIndex = client.get('posts/').get_data(as_text=True)
     assert post.status_code == 302
     assert "Post deleted!" in responseFromIndex

@@ -13,8 +13,8 @@ posts = Blueprint("posts", __name__)
 postsRepository = PostsRepository()
 postsSeed.seed(postsRepository)
 #Uncomment the following lines for the website to work with DB (only index works as intended)
-postsRepository = PostsRepositoryDb()
-postsSeed.seedDb(postsRepository)
+#postsRepository = PostsRepositoryDb()
+#postsSeed.seedDb(postsRepository)
 
 @posts.route("/")
 def index():
