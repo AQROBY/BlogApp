@@ -101,7 +101,7 @@ class PostsRepositoryDb:
                                                 item.id))
             self.repo.commit()
             return True
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
             return False
 
@@ -111,6 +111,6 @@ class PostsRepositoryDb:
             self.repo.cursor().execute('DELETE FROM posts WHERE id = %s', [post.id])
             self.repo.commit()
             return True
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
             return False

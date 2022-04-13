@@ -1,8 +1,5 @@
-import re
 import operator
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-import flask
-from flask.helpers import url_for
 from ..models.Post import Post
 from ..repository.postsRepository import PostsRepository
 from ..repository.postsRepositoryDb import PostsRepositoryDb
@@ -10,26 +7,26 @@ from ..repository import postsSeed
 import datetime
 
 posts = Blueprint("posts", __name__)
-#postsRepository = PostsRepository()
-#postsSeed.seed(postsRepository)
+postsRepository = PostsRepository()
+postsSeed.seed(postsRepository)
 #Uncomment the following lines for the website to work with DB (only index works as intended)
-postsRepository = PostsRepositoryDb()
-postsSeed.seedDb(postsRepository)
+#postsRepository = PostsRepositoryDb()
+#postsSeed.seedDb(postsRepository)
 
 @posts.route("/")
 def index():
-    posts = postsRepository.getAllPreviews()
+    allPosts = postsRepository.getAllPreviews()
     if isinstance(postsRepository, PostsRepository):
-        posts.sort(key = operator.attrgetter("created_at"), reverse=True)
+        allPosts.sort(key = operator.attrgetter("created_at"), reverse=True)
     else:
-        posts.sort(key=lambda item:item['created_at'], reverse=True)
-    return render_template("index.html", posts=posts)
+        allPosts.sort(key=lambda item:item['created_at'], reverse=True)
+    return render_template("index.html", posts=allPosts)
 
 @posts.route("/create", methods=['GET', 'POST'])
 def create():
     tempPost = Post(None, None, None, None, None, None)
     if request.method == "POST":
-        id = 1
+        idPost = 1
         title = request.form.get('title')
         content = request.form.get('content')
         owner = "Doesn't matter"
@@ -42,16 +39,16 @@ def create():
             tempPost.title = title
             flash('Content cannot be empty', category='error')
         else:
-            post = Post(id, title, content, owner, date, date)
+            post = Post(idPost, title, content, owner, date, date)
             postsRepository.create(post)
             flash('Post created!', category='success')
             return redirect(url_for('posts.index'))
 
     return render_template('create_post.html', post=tempPost)
 
-@posts.route("/<int:id>", methods=['GET', 'POST'])
-def read(id):
-    post = postsRepository.findById(id)
+@posts.route("/<int:idPost>", methods=['GET', 'POST'])
+def read(idPost):
+    post = postsRepository.findById(idPost)
     
     if post == None:
         flash('Post does not exist.', category='error')
@@ -59,9 +56,9 @@ def read(id):
 
     return render_template('read_post.html', post=post)
 
-@posts.route("/edit/<int:id>", methods=['GET', 'POST'])
-def edit(id):
-    post = postsRepository.findById(id)
+@posts.route("/edit/<int:idPost>", methods=['GET', 'POST'])
+def edit(idPost):
+    post = postsRepository.findById(idPost)
     
     if post == None:
         flash('Post does not exist.', category='error')
@@ -85,9 +82,9 @@ def edit(id):
 
     return render_template('edit_post.html', post=post)
 
-@posts.route("delete/<int:id>")
-def delete(id):
-    post = postsRepository.findById(id)
+@posts.route("delete/<int:idPost>")
+def delete(idPost):
+    post = postsRepository.findById(idPost)
 
     if post == None:
         flash('Post does not exist.', category='error')
