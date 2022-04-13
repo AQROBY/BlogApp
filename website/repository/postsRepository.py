@@ -5,12 +5,11 @@ class PostsRepository:
         self.repo = list()
         self.counter = 0
 
-    def findById(self, id):
+    def findById(self, idPost):
         for post in self.repo:
-            if id == post.id:
+            if idPost == post.id:
                 return post
-        else:
-            return None
+        return None
         
     def getAll(self):
         return self.repo

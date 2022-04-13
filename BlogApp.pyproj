@@ -61,6 +61,9 @@
     <Compile Include="website\repository\postsSeed.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="website\repository\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="website\views\index.py">
       <SubType>Code</SubType>
     </Compile>

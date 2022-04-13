@@ -1,10 +1,10 @@
 import pytest
 from website import create_app
 
-@pytest.fixture
-def app():
-    app = create_app()
-    yield app
+@pytest.fixture(name="app")
+def fixture_app():
+    blogApp = create_app()
+    yield blogApp
 
 @pytest.fixture
 def client(app):

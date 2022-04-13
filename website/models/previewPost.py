@@ -1,7 +1,4 @@
-from .Post import Post
-
-
-class PreviewPost():
+class PreviewPost:
     def __init__(self, post):
         self.id = post.id
         self.title = post.title

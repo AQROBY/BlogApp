@@ -5,7 +5,7 @@ class PostsRepositoryDb:
     def __init__(self):
         try:
             self.repo = db.connect("dbname=blogapp user=postgres password=admin")
-        except(Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             if(error):
                 connection = db.connect("dbname=postgres user=postgres password=admin")
                 connection.set_session(autocommit=True)
@@ -27,13 +27,13 @@ class PostsRepositoryDb:
                 contentPreview text GENERATED ALWAYS AS (substring(content from 1 for 400) || '...') STORED,  \
                 PRIMARY KEY (id))")
             self.repo.commit()
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
 
     def __connect(self):
         try:
             self.repo = db.connect("dbname=blogapp user=postgres password=admin")
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
 
     def __assignOwner(self):
@@ -43,13 +43,13 @@ class PostsRepositoryDb:
         
         return "Owner " + str(query[0])
 
-    def findById(self, id):
+    def findById(self, idPost):
         try:
             self.__connect()
             cursor = self.repo.cursor()
-            cursor.execute('SELECT * FROM posts WHERE id = %s', [id])
+            cursor.execute('SELECT * FROM posts WHERE id = %s', [idPost])
             return cursor.fetchone()
-        except(Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
             return None
 
@@ -60,7 +60,8 @@ class PostsRepositoryDb:
             cursor.execute('SELECT id, title, content, owner, created_at, modified_at FROM posts \
             ORDER BY created_at')
             return cursor.fetchall()
-        except:
+        except db.DatabaseError as error:
+            print(error)
             return None
 
     def getAllPreviews(self):
@@ -77,25 +78,25 @@ class PostsRepositoryDb:
                     c += 1
                 result.append(row)
             return result
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
             return None
 
     def create(self, item):
         try:
             self.__connect()
-            query = self.repo.cursor().execute('INSERT INTO posts VALUES(DEFAULT, %s, %s, %s, %s, %s)', (item.title, item.content,
+            self.repo.cursor().execute('INSERT INTO posts VALUES(DEFAULT, %s, %s, %s, %s, %s)', (item.title, item.content,
                                                self.__assignOwner(), item.created_at, item.modified_at))
             self.repo.commit()
             return True
-        except (Exception, db.DatabaseError) as error:
+        except db.DatabaseError as error:
             print(error)
             return False
 
     def update(self, item):
         try:
             self.__connect()
-            query = self.repo.cursor().execute('UPDATE posts SET title = %s, content = %s, modified_at = %s WHERE id = %s',
+            self.repo.cursor().execute('UPDATE posts SET title = %s, content = %s, modified_at = %s WHERE id = %s',
                                                (item.title, item.content, datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                                 item.id))
             self.repo.commit()
